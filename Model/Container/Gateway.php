@@ -7,10 +7,10 @@
 namespace AlbertMage\Sms\Model\Container;
 
 use Magento\Framework\App\ObjectManager;
+use AlbertMage\Sms\Model\GatewayInterface;
 
 class Gateway
 {
-
     /**
      * @var array
      */
@@ -24,7 +24,7 @@ class Gateway
         array $gateways
     )
     {
-        $this->gateways = $gateway;
+        $this->gateways = $gateways;
     }
 
     public function getGateways()
@@ -39,12 +39,13 @@ class Gateway
     public function get($gateway)
     {
         if (isset($this->gateways[$gateway])) {
-            if (!$gateway instanceof GatewayInterface) {
+            $instance = ObjectManager::getInstance()->get($this->gateways[$gateway]);
+            if (!$instance instanceof GatewayInterface) {
                 throw new \InvalidArgumentException(
                     __('gateway should be an instance of GatewayInterface.')
                 );
             }
-            return ObjectManager::getInstance()->get($this->gateways[$gateway]);
+            return $instance;
         }
     }
 }

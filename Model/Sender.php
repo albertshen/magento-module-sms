@@ -3,12 +3,13 @@
  * Copyright © PHP Digital, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace AlbertMage\Sms\Model\Gateway;
+namespace AlbertMage\Sms\Model;
 
-use AlbertMage\Sms\Container\IdentityInterface;
+use AlbertMage\Sms\Model\Container\IdentityInterface;
 use AlbertMage\Sms\Model\MessageInterface;
 use AlbertMage\Sms\Model\Container\Gateway;
 use Magento\Framework\App\ObjectManager;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Phrase;
 use Psr\Log\LoggerInterface;
 
@@ -61,7 +62,7 @@ class Sender
             $transport->send($this->message);
         } catch (\Exception $e) {
             $this->logger->error($e);
-            throw new LocalizedException(new Phrase('Unable to send sns. Please try again later.'));
+            throw new LocalizedException(new Phrase('Unable to send sms. Please try again later.'));
         }
     }
 

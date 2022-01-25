@@ -21,7 +21,7 @@ interface IdentityInterface
     /**
      * @return mixed
      */
-    public function getTemplateId();
+    public function getTemplateIdentifier();
 
     /**
      * @return Store

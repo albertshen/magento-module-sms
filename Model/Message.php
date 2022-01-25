@@ -11,7 +11,7 @@ namespace AlbertMage\Sms\Model;
  * @api
  * @since 100.0.2
  */
-interface MessageInterface
+class Message implements MessageInterface
 {
 
     /**

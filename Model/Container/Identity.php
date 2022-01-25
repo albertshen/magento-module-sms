@@ -10,10 +10,6 @@ namespace AlbertMage\Sms\Model\Container;
  */
 class Identity extends Container implements IdentityInterface
 {
-    /**
-     * Configuration paths
-     */
-    const XML_PATH_PREFIX = 'albert_sms';
 
     /**
      * Is email enabled
@@ -46,8 +42,7 @@ class Identity extends Container implements IdentityInterface
      */
     public function getTemplateIdentifier()
     {
-        $path = self::XML_PATH_PREFIX . '/templates/' . $this->getTemplatePath();
-        return $this->getConfigValue($path, $this->getStore()->getStoreId());
+        return $this->getGatewayConifgValue('templates/' . $this->getTemplatePath());
     }
 
     /**

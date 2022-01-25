@@ -5,9 +5,10 @@
  */
 namespace AlbertMage\Sms\Model\Gateway;
 
-use AlbertMage\Sms\Container\IdentityInterface;
+use AlbertMage\Sms\Model\Container\IdentityInterface;
 use AlbertMage\Sms\Model\TransportInterface;
 use AlbertMage\Sms\Model\GatewayInterface;
+use AlbertMage\Sms\Model\MessageInterface;
 use Overtrue\EasySms\EasySms;
 
 abstract class Gateway implements TransportInterface, GatewayInterface
@@ -25,7 +26,7 @@ abstract class Gateway implements TransportInterface, GatewayInterface
     /**
      * @var string
      */
-    private $logPath
+    private $logPath;
 
     /**
      * @param IdentityInterface
@@ -44,7 +45,7 @@ abstract class Gateway implements TransportInterface, GatewayInterface
     public function send(MessageInterface $message)
     {
         $easySms = new EasySms($this->getOptions());
-
+//var_dump($this->getOptions(),$message->getPhoneNumber(), $message->getTemplate(), $message->getData());exit;
         $easySms->send($message->getPhoneNumber(), [
             'template' => $message->getTemplate(),
             'data' => $message->getData()
@@ -66,7 +67,7 @@ abstract class Gateway implements TransportInterface, GatewayInterface
     {
         $gateway = $this->identityContainer->getGateway();
         $options = [
-            'timeout' => $this->getTimeout() ?? 5;
+            'timeout' => $this->getTimeout() ?? 5,
             'default' => [
                 'gateways' => [$gateway]
             ],

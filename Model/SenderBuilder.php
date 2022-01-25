@@ -9,13 +9,14 @@ namespace AlbertMage\Sms\Model;
 use AlbertMage\Sms\Model\MessageInterface;
 use AlbertMage\Sms\Model\Container\IdentityInterface;
 use Magento\Store\Model\Store;
+use Magento\Framework\App\ObjectManager;
 
 /**
  * Interface for sms sender.
  * @api
  * @since 100.0.2
  */
-class Sender
+class SenderBuilder
 {
     /**
      * @var MessageInterface
@@ -67,6 +68,19 @@ class Sender
     public function setTemplateIdentifier($templateId)
     {
         $this->message->setTemplate($templateId);
+        return $this;
+    }
+
+    /**
+     * Set templatePath.
+     * 
+     * @param string $templatePath
+     * @return $this
+     */
+    public function setTemplatePath($path)
+    {
+        $this->identityContainer->setTemplatePath($path);
+        $this->setTemplateIdentifier($this->identityContainer->getTemplateIdentifier());
         return $this;
     }
 

@@ -6,24 +6,24 @@
 namespace AlbertMage\Sms\Model\Config\Source;
 
 use Magento\Framework\Option\ArrayInterface;
-use AlbertMage\Sms\Model\Container\Gateway;
+use AlbertMage\Sms\Model\Container\Gateway as GatewayContainer;
 
 class Gateway implements ArrayInterface
 {
 
     /**
-     * @var array
+     * @var Gateway
      */
-    protected $gateways;
+    protected $gatewayContainer;
 
     /**
      * @param Gateway
      */
     public function __construct(
-        array $gateways
+        GatewayContainer $gatewayContainer
     )
     {
-        $this->gateways = $gateway;
+        $this->gatewayContainer = $gatewayContainer;
     }
 
     /**
@@ -34,10 +34,8 @@ class Gateway implements ArrayInterface
         $options = [
             ['value' => 'none', 'label' => __('None')]
         ];
-        foreach($this->gateways as $gateway) {
-            array_push($options, [
-                ['value' => $gateway, 'label' => __($gateway)]
-            ])
+        foreach($this->gatewayContainer->getGateways() as $gateway) {
+            array_push($options, ['value' => $gateway, 'label' => __($gateway)]);
         }
         return $options;
     }

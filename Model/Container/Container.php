@@ -23,6 +23,7 @@ abstract class Container implements IdentityInterface
      */
     const XML_PATH_SMS_ENABLED = 'albert_sms/setting/active';
     const XML_PATH_SMS_GATEWAY = 'albert_sms/setting/gateway';
+    const XML_PATH_PREFIX = 'albert_sms';
 
     /**
      * @var StoreManagerInterface
@@ -45,6 +46,11 @@ abstract class Container implements IdentityInterface
      * @var string
      */
     protected $customerPhoneNumber;
+
+    /**
+     * @var string
+     */
+    protected $gateway;
 
     /**
      * @var string
@@ -96,12 +102,35 @@ abstract class Container implements IdentityInterface
     /**
      * Get gateway
      *
-     * @param string $gateway
-     * @return void
+     * @return string
      */
     public function getGateway()
     {
-        return $this->getConfigValue(self::XML_PATH_SMS_GATEWAY, $this->getStore()->getStoreId());
+        if ($this->gateway) {
+            return $this->gateway;
+        }
+        return $this->gateway = $this->getConfigValue(self::XML_PATH_SMS_GATEWAY, $this->getStore()->getStoreId());
+    }
+
+    /**
+     * Set gateway
+     *
+     * @param string $gateway
+     * @return void
+     */
+    public function setGateway($gateway)
+    {
+        $this->gateway = $gateway;
+    }
+
+    /**
+     * Get gateway base path
+     *
+     * @return string
+     */
+    public function getGatewayBasePath()
+    {
+        return self::XML_PATH_PREFIX . '/' . $this->getGateway();
     }
 
     /**
@@ -112,7 +141,7 @@ abstract class Container implements IdentityInterface
      */
     public function getGatewayConifgValue($path)
     {
-        return $this->getConfigValue(self::XML_PATH_PREFIX.'/'.$path, $this->getStore()->getStoreId());
+        return $this->getConfigValue($this->getGatewayBasePath().'/'.$path, $this->getStore()->getStoreId());
     }
 
     /**
