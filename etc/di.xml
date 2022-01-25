@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="AlbertMage\Sms\Model\MessageInterface" type="AlbertMage\Sms\Model\Message" />
+    <preference for="AlbertMage\Sms\Model\TransportInterface" type="AlbertMage\Sms\Model\Transport" />
+    <preference for="AlbertMage\Sms\Model\Container\IdentityInterface" type="AlbertMage\Sms\Model\Container\Identity" />
+    <type name="AlbertMage\Sms\Model\Container\Gateway">
+        <arguments>
+            <argument name="gateways" xsi:type="array">
+                <item name="yunpian" xsi:type="string">AlbertMage\Sms\Model\Gateway\Yunpian</item>
+                <item name="aliyun" xsi:type="string">AlbertMage\Sms\Model\Gateway\Aliyun</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

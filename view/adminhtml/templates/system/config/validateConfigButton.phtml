@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © PHP Digital, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+
+<?php /** @var $block AlbertMage\Sms\Block\Adminhtml\System\Config\ValidateConfigButton **/ ?>
+<?= $block->getButtonHtml() ?>
+
+<script type="text/x-magento-init">
+    {
+        "#albertsms_debug_result_button": {
+            "albertSmsValidateConfig": {
+                "postUrl":"<?= $block->escapeUrl($block->getAdminUrl()) ?>"
+            }
+        }
+    }
+</script>
