@@ -47,25 +47,41 @@
                 <group id="templates" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="100">
                     <label>SMS Templates</label>
                     <attribute type="expanded">1</attribute>
-                    <group id="order" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="100">
-                        <label>Order</label>
+                    <group id="customer" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="100">
+                        <label>Customer</label>
                         <attribute type="expanded">0</attribute>
-                        <!-- New Order Confirmation -->
-                        <field id="new_order_confirmation_heading" translate="label" sortOrder="1" showInStore="1" showInWebsite="1" showInDefault="1">
-                            <label>New Order Confirmation</label>
-                            <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                        <field id="new_account_template" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>New Account Template</label>
+                            <comment>New Account Template Id</comment>
                         </field>
-                        <field id="new_order_confirmation_enabled" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
-                            <label>Enabled</label>
-                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <field id="new_account_template_preview" translate="comment label" sortOrder="3" type="textarea" showInStore="1" showInWebsite="1" showInDefault="1">
+                            <label>Template Preview</label>
+                            <comment>New Account Template Preview</comment>
                         </field>
-                        <field id="new_order_confirmation_template_id" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
-                            <label>Template Id</label>
+                        <field id="forgot_password_template" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Forgot Password Template</label>
                             <comment>SMS Template Id</comment>
                         </field>
-                        <field id="new_order_confirmation_message" translate="comment label" sortOrder="4" type="textarea" showInStore="1" showInWebsite="1" showInDefault="1">
-                            <label>Message Preview</label>
-                            <comment>SMS Message Preview</comment>
+                        <field id="forgot_password_template_preview" translate="comment label" sortOrder="6" type="textarea" showInStore="1" showInWebsite="1" showInDefault="1">
+                            <label>Template Preview</label>
+                            <comment>Forgot Password Template Preview</comment>
+                        </field>
+                    </group>
+                    <group id="sales" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="100">
+                        <label>Sales</label>
+                        <attribute type="expanded">1</attribute>
+                        <!-- New Order Confirmation -->
+                        <field id="order_heading" translate="label" sortOrder="1" showInStore="1" showInWebsite="1" showInDefault="1">
+                            <label>Order</label>
+                            <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                        </field>
+                        <field id="new_order_confirmation_template" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>New Order Confirmation Template</label>
+                            <comment>New Order Confirmation Template Id</comment>
+                        </field>
+                        <field id="new_order_confirmation_template_preivew" translate="comment label" sortOrder="4" type="textarea" showInStore="1" showInWebsite="1" showInDefault="1">
+                            <label>Template Preview</label>
+                            <comment>New Order Confirmation Template</comment>
                         </field>
                     </group>
                 </group>
@@ -88,25 +104,41 @@
                 <group id="templates" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="100">
                     <label>SMS Templates</label>
                     <attribute type="expanded">1</attribute>
-                    <group id="order" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="100">
-                        <label>Order</label>
+                    <group id="customer" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="100">
+                        <label>Customer</label>
                         <attribute type="expanded">0</attribute>
-                        <!-- New Order Confirmation -->
-                        <field id="new_order_confirmation_heading" translate="label" sortOrder="1" showInStore="1" showInWebsite="1" showInDefault="1">
-                            <label>New Order Confirmation</label>
-                            <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                        <field id="new_account_template" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>New Account Template</label>
+                            <comment>New Account Template Id</comment>
                         </field>
-                        <field id="new_order_confirmation_enabled" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
-                            <label>Enabled</label>
-                            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <field id="new_account_template_preview" translate="comment label" sortOrder="3" type="textarea" showInStore="1" showInWebsite="1" showInDefault="1">
+                            <label>Template Preview</label>
+                            <comment>New Account Template Preview</comment>
                         </field>
-                        <field id="new_order_confirmation_template_id" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
-                            <label>Template Id</label>
+                        <field id="forgot_password_template" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Forgot Password Template</label>
                             <comment>SMS Template Id</comment>
                         </field>
-                        <field id="new_order_confirmation_message" translate="comment label" sortOrder="4" type="textarea" showInStore="1" showInWebsite="1" showInDefault="1">
-                            <label>Message Preview</label>
-                            <comment>SMS Message Preview</comment>
+                        <field id="forgot_password_template_preview" translate="comment label" sortOrder="6" type="textarea" showInStore="1" showInWebsite="1" showInDefault="1">
+                            <label>Template Preview</label>
+                            <comment>Forgot Password Template Preview</comment>
+                        </field>
+                    </group>
+                    <group id="sales" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="100">
+                        <label>Sales</label>
+                        <attribute type="expanded">1</attribute>
+                        <!-- New Order Confirmation -->
+                        <field id="order_heading" translate="label" sortOrder="1" showInStore="1" showInWebsite="1" showInDefault="1">
+                            <label>Order</label>
+                            <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                        </field>
+                        <field id="new_order_confirmation_template" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>New Order Confirmation Template</label>
+                            <comment>New Order Confirmation Template Id</comment>
+                        </field>
+                        <field id="new_order_confirmation_template_preivew" translate="comment label" sortOrder="4" type="textarea" showInStore="1" showInWebsite="1" showInDefault="1">
+                            <label>Template Preview</label>
+                            <comment>New Order Confirmation Template</comment>
                         </field>
                     </group>
                 </group>

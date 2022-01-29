@@ -3,6 +3,8 @@
     <preference for="AlbertMage\Sms\Model\MessageInterface" type="AlbertMage\Sms\Model\Message" />
     <preference for="AlbertMage\Sms\Model\TransportInterface" type="AlbertMage\Sms\Model\Transport" />
     <preference for="AlbertMage\Sms\Model\Container\IdentityInterface" type="AlbertMage\Sms\Model\Container\Identity" />
+    <preference for="AlbertMage\Sms\Api\Data\SmsMessageInterface" type="AlbertMage\Sms\Model\SmsMessage" />
+    <preference for="AlbertMage\Sms\Api\Data\SmsMessageSearchResultsInterface" type="AlbertMage\Sms\Model\SmsMessageSearchResults" />
     <type name="AlbertMage\Sms\Model\Container\Gateway">
         <arguments>
             <argument name="gateways" xsi:type="array">
