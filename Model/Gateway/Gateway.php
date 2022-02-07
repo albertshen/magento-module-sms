@@ -5,7 +5,7 @@
  */
 namespace AlbertMage\Sms\Model\Gateway;
 
-use AlbertMage\Sms\Model\Container\IdentityInterface;
+use AlbertMage\Sms\Model\Config\SmsGateway;
 use AlbertMage\Sms\Model\TransportInterface;
 use AlbertMage\Sms\Model\GatewayInterface;
 use AlbertMage\Sms\Model\MessageInterface;
@@ -14,9 +14,9 @@ use Overtrue\EasySms\EasySms;
 abstract class Gateway implements TransportInterface, GatewayInterface
 {
     /**
-     * @var IdentityInterface
+     * @var SmsGateway
      */
-    protected $identityContainer;
+    protected $smsGatewayConfig;
 
     /**
      * @var string
@@ -29,14 +29,14 @@ abstract class Gateway implements TransportInterface, GatewayInterface
     private $logPath;
 
     /**
-     * @param IdentityInterface
+     * @param SmsGateway
      * @param array
      */
     public function __construct(
-        IdentityInterface $identityContainer
+        SmsGateway $smsGatewayConfig
     )
     {
-        $this->identityContainer = $identityContainer;
+        $this->smsGatewayConfig = $smsGatewayConfig;
     }
 
     /**
@@ -45,12 +45,14 @@ abstract class Gateway implements TransportInterface, GatewayInterface
     public function send(MessageInterface $message)
     {
         $easySms = new EasySms($this->getOptions());
-//var_dump($this->getOptions(),$message->getPhoneNumber(), $message->getTemplate(), $message->getData());exit;
-        $a = $easySms->send($message->getPhoneNumber(), [
-            'template' => $message->getTemplate(),
-            'data' => $message->getData()
-        ]);
-        var_dump($a);exit;
+        //var_dump($this->getOptions(), $message->getPhoneNumber(), $message->getTemplate(), $message->getData());exit;
+        // $result = $easySms->send($message->getPhoneNumber(), [
+        //     'template' => $message->getTemplate(),
+        //     'data' => $message->getData()
+        // ]);
+        //$result = ['aliyun' => ['result' => ['BizId' => '33']]];
+        //$result = ['yunpian' => ['result' => ['sid' => '999yunpian']]];
+        return $this->getResult($result);
     }
 
     /**
@@ -58,7 +60,7 @@ abstract class Gateway implements TransportInterface, GatewayInterface
      */
     public function getData()
     {
-        return $this->identityContainer;
+        return $this->smsGatewayConfig;
     }
 
     /**
@@ -66,7 +68,7 @@ abstract class Gateway implements TransportInterface, GatewayInterface
      */
     public function getOptions()
     {
-        $gateway = $this->identityContainer->getGateway();
+        $gateway = $this->smsGatewayConfig->getGateway();
         $options = [
             'timeout' => $this->getTimeout() ?? 5,
             'default' => [

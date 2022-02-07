@@ -5,10 +5,10 @@
  * See COPYING.txt for license details.
  */
 
-namespace AlbertMage\Sms\Model\ResourceModel\SmsMessage;
+namespace AlbertMage\Sms\Model\ResourceModel\SmsSalesQueue;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
-use AlbertMage\Sms\Model\ResourceModel\SmsMessage;
+use AlbertMage\Sms\Model\ResourceModel\SmsSalesQueue;
 
 /**
  * Class Collection
@@ -23,7 +23,7 @@ class Collection extends AbstractCollection
      */
     protected function _construct()
     {
-        $this->_init(\AlbertMage\Sms\Model\SmsMessage::class,
-            SmsMessage::class);
+        $this->_init(\AlbertMage\Sms\Model\SmsSalesQueue::class,
+            SmsSalesQueue::class);
     }
 }

@@ -18,4 +18,15 @@ class Yunpian extends Gateway
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function getResult($result)
+    {
+        $result = $result['yunpian']['result'];
+        $resultObject = new Result();
+        $resultObject->setSid($result['sid']);
+        return $resultObject;
+    }
+
 }

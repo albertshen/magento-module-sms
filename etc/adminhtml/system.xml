@@ -144,5 +144,70 @@
                 </group>
             </group>
         </section>
+
+
+        <section id="albert_sales_sms" translate="label" type="text" sortOrder="301" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Sales Sms</label>
+            <tab>sales</tab>
+            <resource>AlbertMage_Sms::config</resource>
+            <group id="general" type="text" sortOrder="0" showInDefault="1">
+                <label>General Settings</label>
+                <field id="async_sending" translate="label" type="select" sortOrder="1" showInDefault="1" canRestore="1">
+                    <label>Asynchronous sending</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+                <field id="sending_limit" translate="label" type="text" sortOrder="2" showInDefault="1" canRestore="1">
+                    <label>Limit per cron run</label>
+                    <comment>Limit how many entities (orders/shipments/etc) will be processed during one cron run.</comment>
+                    <validate>required-number validate-number validate-greater-than-zero</validate>
+                    <depends>
+                        <field id="async_sending">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="setting" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Setting</label>
+                <field id="order_heading" translate="label" sortOrder="1" showInStore="1" showInWebsite="1" showInDefault="1">
+                    <label>Order</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                </field>
+                <field id="new_order_confirmation_enabled" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>New Order Confirmation Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="order_update_enabled" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Order Update Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="invoice_heading" translate="label" sortOrder="4" showInStore="1" showInWebsite="1" showInDefault="1">
+                    <label>Invoice</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                </field>
+                <field id="new_invoice_enabled" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>New Invoice Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="shipment_heading" translate="label" sortOrder="6" showInStore="1" showInWebsite="1" showInDefault="1">
+                    <label>Shipment</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                </field>
+                <field id="new_shipment_enabled" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>New Shipment Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="update_shipment_enabled" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Update Shipment Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="creditmemo_heading" translate="label" sortOrder="9" showInStore="1" showInWebsite="1" showInDefault="1">
+                    <label>Credit Memo</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                </field>
+                <field id="new_creditmemo_enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>New Credit Memo Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
     </system>
 </config>

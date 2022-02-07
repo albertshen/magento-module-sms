@@ -3,7 +3,7 @@
  * Copyright © PHP Digital, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace AlbertMage\Sms\Model\Container;
+namespace AlbertMage\Sms\Model\Config;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\Store;
@@ -15,7 +15,7 @@ use Magento\Store\Model\StoreManagerInterface;
  * @api
  * @since 100.0.2
  */
-abstract class Container implements IdentityInterface
+class SmsGateway
 {
 
     /**
@@ -45,17 +45,7 @@ abstract class Container implements IdentityInterface
     /**
      * @var string
      */
-    protected $customerPhoneNumber;
-
-    /**
-     * @var string
-     */
     protected $gateway;
-
-    /**
-     * @var string
-     */
-    protected $customerEmail;
 
     /**
      * @param ScopeConfigInterface $scopeConfig
@@ -70,27 +60,11 @@ abstract class Container implements IdentityInterface
     }
 
     /**
-     * Return store configuration value
+     * Is sms enabled
      *
-     * @param string $path
-     * @param int $storeId
-     * @return mixed
+     * @return bool
      */
-    protected function getConfigValue($path, $storeId)
-    {
-        return $this->scopeConfig->getValue(
-            $path,
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
-            $storeId
-        );
-    }
-
-    /**
-     * Is sms enable
-     *
-     * @return @return bool
-     */
-    public function isSmsEnable()
+    public function isEnabled()
     {
         return $this->scopeConfig->isSetFlag(
             self::XML_PATH_SMS_ENABLED,
@@ -142,6 +116,53 @@ abstract class Container implements IdentityInterface
     public function getGatewayConifgValue($path)
     {
         return $this->getConfigValue($this->getGatewayBasePath().'/'.$path, $this->getStore()->getStoreId());
+    }
+
+    /**
+     * Get template path
+     *
+     * @return string
+     */
+    public function getTemplatePath()
+    {
+        return $this->templatePath;
+    }
+
+    /**
+     * Return template id
+     *
+     * @return mixed
+     */
+    public function getTemplateIdentifier()
+    {
+        return $this->getGatewayConifgValue('templates/' . $this->getTemplatePath());
+    }
+
+    /**
+     * Set template path
+     *
+     * @return $this
+     */
+    public function setTemplatePath($path)
+    {
+        $this->templatePath = $path;
+        return $this;
+    }
+
+    /**
+     * Return store configuration value
+     *
+     * @param string $path
+     * @param int $storeId
+     * @return mixed
+     */
+    protected function getConfigValue($path, $storeId)
+    {
+        return $this->scopeConfig->getValue(
+            $path,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
+            $storeId
+        );
     }
 
     /**

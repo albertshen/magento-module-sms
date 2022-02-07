@@ -2,9 +2,19 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="AlbertMage\Sms\Model\MessageInterface" type="AlbertMage\Sms\Model\Message" />
     <preference for="AlbertMage\Sms\Model\TransportInterface" type="AlbertMage\Sms\Model\Transport" />
-    <preference for="AlbertMage\Sms\Model\Container\IdentityInterface" type="AlbertMage\Sms\Model\Container\Identity" />
+    <preference for="AlbertMage\Sms\Api\SmsMessageRepositoryInterface" type="AlbertMage\Sms\Model\SmsMessageRepository" />
     <preference for="AlbertMage\Sms\Api\Data\SmsMessageInterface" type="AlbertMage\Sms\Model\SmsMessage" />
     <preference for="AlbertMage\Sms\Api\Data\SmsMessageSearchResultsInterface" type="AlbertMage\Sms\Model\SmsMessageSearchResults" />
+    <preference for="AlbertMage\Sms\Api\SmsSalesQueueRepositoryInterface" type="AlbertMage\Sms\Model\SmsSalesQueueRepository" />
+    <preference for="AlbertMage\Sms\Api\Data\SmsSalesQueueInterface" type="AlbertMage\Sms\Model\SmsSalesQueue" />
+    <preference for="AlbertMage\Sms\Api\Data\SmsSalesQueueSearchResultsInterface" type="AlbertMage\Sms\Model\SmsSalesQueueSearchResults" />
+<!--     <type name="Magento\Sales\Model\Order\Invoice\Notifier">
+        <arguments>
+            <argument name="senders" xsi:type="array">
+                <item name="sms" xsi:type="object">AlbertMage\Sms\Model\Sender\Sales\InvoiceSender</item>
+            </argument>
+        </arguments>
+    </type> -->
     <type name="AlbertMage\Sms\Model\Container\Gateway">
         <arguments>
             <argument name="gateways" xsi:type="array">
@@ -13,4 +23,14 @@
             </argument>
         </arguments>
     </type>
+    <virtualType name="AlbertMage\Sms\Model\Sender\Sales\NewOrder" type="AlbertMage\Sms\Model\Sender\Sales\OrderSender">
+        <arguments>
+            <argument name="event" xsi:type="string">new_order</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AlbertMage\Sms\Model\Sender\UpdateOrder" type="AlbertMage\Sms\Model\Sender\OrderSender">
+        <arguments>
+            <argument name="event" xsi:type="string">update_order</argument>
+        </arguments>
+    </virtualType>
 </config>

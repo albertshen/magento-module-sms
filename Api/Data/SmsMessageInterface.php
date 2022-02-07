@@ -18,7 +18,7 @@ interface SmsMessageInterface
     const ID = 'id';
     const PHONE_NUMBER = 'phone_number';
     const TEMPLATE_ID = 'template_id';
-    const MESSAT_DATA = 'messat_data';
+    const MESSAGE_DATA = 'message_data';
     const GATEWAY = 'gateway';
     const STATUS = 'status';
     const SID = 'sid';
@@ -68,7 +68,7 @@ interface SmsMessageInterface
      * @param string $templateId
      * @return $this
      */
-    public function setPhoneNumber($templateId);
+    public function setTemplateId($templateId);
 
     /**
      * Get Message Data

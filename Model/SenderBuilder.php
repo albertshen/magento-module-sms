@@ -7,7 +7,7 @@
 namespace AlbertMage\Sms\Model;
 
 use AlbertMage\Sms\Model\MessageInterface;
-use AlbertMage\Sms\Model\Container\IdentityInterface;
+use AlbertMage\Sms\Model\Config\SmsGateway;
 use Magento\Store\Model\Store;
 use Magento\Framework\App\ObjectManager;
 
@@ -27,11 +27,11 @@ class SenderBuilder
      * @param SenderOptions $options
      */
     public function __construct(
-        IdentityInterface $identityContainer,
+        SmsGateway $smsGatewayConfig,
         MessageInterface $message
     )
     {
-        $this->identityContainer = $identityContainer;
+        $this->smsGatewayConfig = $smsGatewayConfig;
         $this->message = $message;
     }
 
@@ -43,7 +43,7 @@ class SenderBuilder
      */
     public function setStore(Store $store)
     {
-        $this->identityContainer->setStore($store);
+        $this->smsGatewayConfig->setStore($store);
         return $this;
     }
 
@@ -79,8 +79,8 @@ class SenderBuilder
      */
     public function setTemplatePath($path)
     {
-        $this->identityContainer->setTemplatePath($path);
-        $this->setTemplateIdentifier($this->identityContainer->getTemplateIdentifier());
+        $this->smsGatewayConfig->setTemplatePath($path);
+        $this->setTemplateIdentifier($this->smsGatewayConfig->getTemplateIdentifier());
         return $this;
     }
 

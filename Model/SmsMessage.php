@@ -38,7 +38,8 @@ class SmsMessage extends AbstractModel implements SmsMessageInterface
      */
     public function setId($id)
     {
-        return $this->setData(self::ID, $id);
+        $this->setData(self::ID, $id);
+        return $this;
     }
 
     /**
@@ -52,9 +53,10 @@ class SmsMessage extends AbstractModel implements SmsMessageInterface
     /**
      * @inheritDoc
      */
-    public function setTemplateId($templateId)
+    public function setPhoneNumber($phoneNumber)
     {
-        return $this->setData(self::TEMPLATE_ID, $templateId);
+        $this->setData(self::PHONE_NUMBER, $phoneNumber);
+        return $this;
     }
 
     /**
@@ -64,13 +66,14 @@ class SmsMessage extends AbstractModel implements SmsMessageInterface
     {
         return $this->getData(self::TEMPLATE_ID);
     }
-
+    
     /**
      * @inheritDoc
      */
-    public function setPhoneNumber($phoneNumber)
+    public function setTemplateId($templateId)
     {
-        return $this->setData(self::PHONE_NUMBER, $phoneNumber);
+        $this->setData(self::TEMPLATE_ID, $templateId);
+        return $this;
     }
 
     /**
@@ -86,7 +89,8 @@ class SmsMessage extends AbstractModel implements SmsMessageInterface
      */
     public function setMessageData($messageData)
     {
-        return $this->setData(self::MESSAGE_DATA, $data);
+        $this->setData(self::MESSAGE_DATA, $messageData);
+        return $this;
     }
 
     /**
@@ -102,7 +106,8 @@ class SmsMessage extends AbstractModel implements SmsMessageInterface
      */
     public function setGateway($gateway)
     {
-        return $this->setData(self::GATEWAY, $gateway);
+        $this->setData(self::GATEWAY, $gateway);
+        return $this;
     }
 
     /**
@@ -118,7 +123,8 @@ class SmsMessage extends AbstractModel implements SmsMessageInterface
      */
     public function setStatus($status)
     {
-        return $this->setData(self::STATUS, $status);
+        $this->setData(self::STATUS, $status);
+        return $this;
     }
 
     /**
@@ -134,7 +140,8 @@ class SmsMessage extends AbstractModel implements SmsMessageInterface
      */
     public function setSid($sid)
     {
-        return $this->setData(self::SID, $sid);
+        $this->setData(self::SID, $sid);
+        return $this;
     }
 
     /**
@@ -150,7 +157,8 @@ class SmsMessage extends AbstractModel implements SmsMessageInterface
      */
     public function setRequest($request)
     {
-        return $this->setData(self::REQUEST, $request);
+        $this->setData(self::REQUEST, $request);
+        return $this;
     }
 
 }

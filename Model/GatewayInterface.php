@@ -21,6 +21,13 @@ interface GatewayInterface
     public function getConfig();
 
     /**
+     * Get sms message result.
+     * 
+     * @return array
+     */
+    public function getResult($result);
+
+    /**
      * @return int
      */ 
     public function getTimeout();

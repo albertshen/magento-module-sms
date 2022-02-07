@@ -20,4 +20,15 @@ class Aliyun extends Gateway
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function getResult($result)
+    {
+        $result = $result['aliyun']['result'];
+        $resultObject = new Result();
+        $resultObject->setSid($result['BizId']);
+        return $resultObject;
+    }
+
 }
