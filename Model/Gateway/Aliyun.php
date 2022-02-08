@@ -25,10 +25,15 @@ class Aliyun extends Gateway
      */
     public function getResult($result)
     {
-        $result = $result['aliyun']['result'];
-        $resultObject = new Result();
-        $resultObject->setSid($result['BizId']);
-        return $resultObject;
+        if (isset($result['aliyun']['result'])) {
+            $re = $result['aliyun']['result'];
+            $this->result->setSid($re['BizId']);
+            $this->result->setStatus(ResultInterface::SMS_RESULT_STATUS_SUCCESS);
+            $this->result->setResponse(json_encode($re));
+        } else {
+            $this->result->setStatus(ResultInterface::SMS_RESULT_STATUS_FAILURE);
+            $this->result->setResponse(json_encode($result['aliyun']['exception']->raw));
+        }
+        return $this->result;
     }
-
 }

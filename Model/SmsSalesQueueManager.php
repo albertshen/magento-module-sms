@@ -120,7 +120,11 @@ class SmsSalesQueueManager
             ->send();
         $queue->setSentAt($this->dateTime->formatDate(new \DateTime()));
         $queue->setMessageId($msg->getId());
-        $queue->setStatus(self::SMS_STATUS_SENT);
+        if ($msg->getStatus() == 'success') {
+            $queue->setStatus(self::SMS_STATUS_SENT);
+        } else {
+            $queue->setStatus(self::SMS_STATUS_FAILED);
+        }
         $this->smsSalesQueueRepository->save($queue);
     }
 

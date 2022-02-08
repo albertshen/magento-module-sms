@@ -161,4 +161,20 @@ class SmsMessage extends AbstractModel implements SmsMessageInterface
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getResponse()
+    {
+        return $this->getData(self::RESPONSE);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setResponse($request)
+    {
+        $this->setData(self::RESPONSE, $request);
+        return $this;
+    }
 }

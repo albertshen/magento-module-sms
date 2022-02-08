@@ -1,5 +1,6 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="AlbertMage\Sms\Model\Gateway\ResultInterface" type="AlbertMage\Sms\Model\Gateway\Result" />
     <preference for="AlbertMage\Sms\Model\MessageInterface" type="AlbertMage\Sms\Model\Message" />
     <preference for="AlbertMage\Sms\Model\TransportInterface" type="AlbertMage\Sms\Model\Transport" />
     <preference for="AlbertMage\Sms\Api\SmsMessageRepositoryInterface" type="AlbertMage\Sms\Model\SmsMessageRepository" />

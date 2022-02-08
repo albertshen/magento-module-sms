@@ -10,6 +10,8 @@ use AlbertMage\Sms\Model\TransportInterface;
 use AlbertMage\Sms\Model\GatewayInterface;
 use AlbertMage\Sms\Model\MessageInterface;
 use Overtrue\EasySms\EasySms;
+use Overtrue\EasySms\Exceptions\NoGatewayAvailableException;
+use Psr\Log\LoggerInterface;
 
 abstract class Gateway implements TransportInterface, GatewayInterface
 {
@@ -19,24 +21,31 @@ abstract class Gateway implements TransportInterface, GatewayInterface
     protected $smsGatewayConfig;
 
     /**
-     * @var string
+     * @var ResultInterface
      */
-    private $timeout;
+    protected $result;
 
     /**
      * @var string
      */
-    private $logPath;
+    protected $timeout;
+
+    /**
+     * @var string
+     */
+    protected $logPath;
 
     /**
      * @param SmsGateway
      * @param array
      */
     public function __construct(
-        SmsGateway $smsGatewayConfig
+        SmsGateway $smsGatewayConfig,
+        ResultInterface $result
     )
     {
         $this->smsGatewayConfig = $smsGatewayConfig;
+        $this->result = $result;
     }
 
     /**
@@ -45,11 +54,14 @@ abstract class Gateway implements TransportInterface, GatewayInterface
     public function send(MessageInterface $message)
     {
         $easySms = new EasySms($this->getOptions());
-        //var_dump($this->getOptions(), $message->getPhoneNumber(), $message->getTemplate(), $message->getData());exit;
-        $result = $easySms->send($message->getPhoneNumber(), [
-            'template' => $message->getTemplate(),
-            'data' => $message->getData()
-        ]);
+        try {
+            $result = $easySms->send($message->getPhoneNumber(), [
+                'template' => $message->getTemplate(),
+                'data' => $message->getData()
+            ]);
+        } catch (NoGatewayAvailableException $e) {
+            $result = $e->getResults();
+        }
         //$result = ['aliyun' => ['result' => ['BizId' => '33']]];
         //$result = ['yunpian' => ['result' => ['sid' => '999yunpian']]];
         return $this->getResult($result);

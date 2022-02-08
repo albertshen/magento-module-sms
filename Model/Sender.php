@@ -12,7 +12,6 @@ use AlbertMage\Sms\Model\Gateway\Result;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Phrase;
-use Psr\Log\LoggerInterface;
 
 class Sender
 {
@@ -32,25 +31,18 @@ class Sender
     private $message;
 
     /**
-     * @var LoggerInterface|null
-     */
-    private $logger;
-
-    /**
      * @param SmsGateway
      * @param array
      */
     public function __construct(
         SmsGateway $smsGatewayConfig,
         Gateway $gatewayContainer,
-        MessageInterface $message,
-        LoggerInterface $logger
+        MessageInterface $message
     )
     {
         $this->smsGatewayConfig = $smsGatewayConfig;
         $this->gatewayContainer = $gatewayContainer;
         $this->message = $message;
-        $this->logger = $logger;
     }
 
     /**
@@ -59,13 +51,8 @@ class Sender
     public function send()
     {
         $transport = $this->gatewayContainer->get($this->smsGatewayConfig->getGateway());
-        try {
-            $result = $transport->send($this->message);
-            return $this->saveMessage($this->message, $result);
-        } catch (\Exception $e) {
-            $this->logger->error($e);
-            throw new LocalizedException(new Phrase('Unable to send sms. Please try again later.'));
-        }
+        $result = $transport->send($this->message);
+        return $this->saveMessage($this->message, $result);
     }
 
     public function saveMessage(MessageInterface $message, Result $result)
@@ -77,6 +64,8 @@ class Sender
         $smsMessage->setTemplateId($message->getTemplate());
         $smsMessage->setGateway($this->smsGatewayConfig->getGateway());
         $smsMessage->setSid($result->getSid());
+        $smsMessage->setStatus($result->getStatus());
+        $smsMessage->setResponse($result->getResponse());
         $smsMessageRepository->save($smsMessage);
         return $smsMessage;
     }

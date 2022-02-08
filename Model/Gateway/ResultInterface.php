@@ -13,6 +13,11 @@ namespace AlbertMage\Sms\Model\Gateway;
  */
 interface ResultInterface
 {
+
+    const SMS_RESULT_STATUS_SUCCESS = 'success';
+
+    const SMS_RESULT_STATUS_FAILURE = 'failure';
+
     /**
      * Get sid.
      * 
@@ -27,4 +32,34 @@ interface ResultInterface
      * @return $this
      */
     public function setSid($sid);
+
+    /**
+     * Get status.
+     * 
+     * @return string
+     */
+    public function getStatus();
+
+    /**
+     * Set status.
+     * 
+     * @param string $status
+     * @return $this
+     */
+    public function setStatus($status);
+
+    /**
+     * Get response.
+     * 
+     * @return string
+     */
+    public function getResponse();
+
+    /**
+     * Set response.
+     * 
+     * @param string $response
+     * @return $this
+     */
+    public function setResponse($response);
 }

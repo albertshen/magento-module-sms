@@ -118,14 +118,14 @@ interface SmsSalesQueueInterface
     /**
      * Get Status
      *
-     * @return int
+     * @return string
      */
     public function getStatus();
 
     /**
      * Set Status
      *
-     * @param int $status
+     * @param string $status
      * @return $this
      */
     public function setStatus($status);

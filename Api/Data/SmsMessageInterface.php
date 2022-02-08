@@ -23,6 +23,7 @@ interface SmsMessageInterface
     const STATUS = 'status';
     const SID = 'sid';
     const REQUEST = 'request';
+    const RESPONSE = 'response';
     /**#@-*/
 
     /**
@@ -103,14 +104,14 @@ interface SmsMessageInterface
     /**
      * Get Status
      *
-     * @return int
+     * @return string
      */
     public function getStatus();
 
     /**
      * Set Status
      *
-     * @param int $status
+     * @param string $status
      * @return $this
      */
     public function setStatus($status);
@@ -144,5 +145,20 @@ interface SmsMessageInterface
      * @return $this
      */
     public function setRequest($request);
+
+    /**
+     * Get Response
+     *
+     * @return string
+     */
+    public function getResponse();
+
+    /**
+     * Set Response
+     *
+     * @param string $response
+     * @return $this
+     */
+    public function setResponse($response);
 
 }

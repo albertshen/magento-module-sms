@@ -20,6 +20,16 @@ class Result implements ResultInterface
     private $sid;
 
     /**
+     * @var string
+     */
+    private $status;
+
+    /**
+     * @var string
+     */
+    private $response;
+
+    /**
      * @inheritdoc
      */
     public function getSid()
@@ -33,5 +43,37 @@ class Result implements ResultInterface
     public function setSid($sid)
     {
         $this->sid = $sid;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setResponse($response)
+    {
+        $this->response = $response;
     }
 }
