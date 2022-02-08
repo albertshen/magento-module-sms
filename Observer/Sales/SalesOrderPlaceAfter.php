@@ -3,26 +3,10 @@
 namespace AlbertMage\Sms\Observer\Sales;
 
 use Magento\Framework\Event\Observer;
-use AlbertMage\Sms\Model\Sender\NewOrder;
+use Magento\Framework\App\ObjectManager;
 
 class SalesOrderPlaceAfter implements \Magento\Framework\Event\ObserverInterface
 {
-
-    /**
-     * @var NewOrder
-     */
-    private $newOrder;
-
-    /**
-     * OrderSaveAfter constructor.
-     * @param UpdateOrder $updateOrder
-     * @param NewOrder $newOrder
-     */
-    public function __construct(
-        NewOrder $newOrder
-    ) {
-        $this->newOrder = $newOrder;
-    }
 
     /**
      * @param Observer $observer
@@ -32,10 +16,9 @@ class SalesOrderPlaceAfter implements \Magento\Framework\Event\ObserverInterface
     public function execute(Observer $observer)
     {
         $order = $observer->getEvent()->getOrder();
-        
-        $this->newOrder->send($order);
-        //var_dump(get_class_methods($order));exit;
-    }
 
+        $newOrder = ObjectManager::getInstance()->create(\AlbertMage\Sms\Model\Sender\Sales\NewOrder::class);
+        $newOrder->send($order);
+    }
 
 }

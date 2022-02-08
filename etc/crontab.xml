@@ -6,9 +6,9 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
-    <group id="default">
+    <group id="albertmage_sms">
         <job name="albertmage_send_sms" instance="AlbertMage\Sms\Model\Cron" method="execute">
-            <schedule>0 0 * * *</schedule>
+            <schedule>* * * * *</schedule>
         </job>
     </group>
 </config>

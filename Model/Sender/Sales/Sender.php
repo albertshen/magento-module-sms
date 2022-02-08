@@ -87,7 +87,7 @@ abstract class Sender implements SenderInterface
             ->setPhoneNumber($order->getShippingAddress()->getTelephone())
             ->setEvent($this->getEvent())
             ->setMessageData(json_encode($transportObject->getData()))
-            ->setStatus(0);
+            ->setStatus(SmsSalesQueueManager::SMS_STATUS_PENDING);
         $queueRepository->save($queue);
 
         $this->salesSmsConfig->setStore($order->getStore());

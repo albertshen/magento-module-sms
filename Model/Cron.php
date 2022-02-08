@@ -2,6 +2,8 @@
 
 namespace AlbertMage\Sms\Model;
 
+use AlbertMage\Sms\Model\SmsSalesQueueManager;
+
 class Cron
 {
     /**
@@ -10,23 +12,19 @@ class Cron
     private $logger;
 
     /**
-     * @var SmsSenderManagerFactory
+     * @var SmsSalesQueueManager
      */
-    private $senderManager;
-
-    /**
-     * @var JobChecker
-     */
-    private $jobChecker;
+    protected $smsSalesQueueManager;
 
     /**
      * Cron constructor.
      * @param Logger $logger
-     * @param SmsSenderManagerFactory $senderManager
-     * @param JobChecker $jobChecker
+     * @param SmsSalesQueueManager $smsSalesQueueManager
      */
     public function __construct(
+        SmsSalesQueueManager $smsSalesQueueManager
     ) {
+        $this->smsSalesQueueManager = $smsSalesQueueManager;
     }
 
     /**
@@ -34,6 +32,10 @@ class Cron
      */
     public function execute()
     {
-        // Queuer->consume($queue);
+        $items = $this->smsSalesQueueManager->getPendingQueue([1])->getItems();
+        if ($items) {
+            $this->smsSalesQueueManager->batchConsume($items);
+        }
+        
     }
 }

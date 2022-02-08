@@ -46,10 +46,10 @@ abstract class Gateway implements TransportInterface, GatewayInterface
     {
         $easySms = new EasySms($this->getOptions());
         //var_dump($this->getOptions(), $message->getPhoneNumber(), $message->getTemplate(), $message->getData());exit;
-        // $result = $easySms->send($message->getPhoneNumber(), [
-        //     'template' => $message->getTemplate(),
-        //     'data' => $message->getData()
-        // ]);
+        $result = $easySms->send($message->getPhoneNumber(), [
+            'template' => $message->getTemplate(),
+            'data' => $message->getData()
+        ]);
         //$result = ['aliyun' => ['result' => ['BizId' => '33']]];
         //$result = ['yunpian' => ['result' => ['sid' => '999yunpian']]];
         return $this->getResult($result);

@@ -40,7 +40,7 @@
         <column xsi:type="varchar" name="event" nullable="false" length="255" comment="Event Name"/>
         <column xsi:type="json" name="message_data" nullable="true" length="255" comment="Message var"/>
         <column xsi:type="text" name="additional_data" nullable="true" comment="Additional data"/>
-        <column xsi:type="smallint" name="status" nullable="true" padding="2" comment="Status"/>
+        <column xsi:type="varchar" name="status" nullable="false" length="50" comment="In progress"/>
         <column xsi:type="int" name="message_id" unsigned="true" nullable="true" comment="Message ID"/>
         <column xsi:type="timestamp" name="sent_at" on_update="false" nullable="true" comment="Sent at date"/>
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
