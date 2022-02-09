@@ -10,7 +10,7 @@
             <tab>albertmage</tab>
             <resource>AlbertMage_Sms::config</resource>
             <group id="setting" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>SMS Configuration and Settings (Yunpian/Aliyun etc)</label>
+                <label>SMS Configuration and Settings (Aliyun/Yunpian etc)</label>
                 <field id="active" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -18,7 +18,7 @@
                 <field id="gateway" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Gateway</label>
                     <source_model>AlbertMage\Sms\Model\Config\Source\Gateway</source_model>
-                    <comment>Default: Yunpian</comment>
+                    <comment>Default: Aliyun</comment>
                     <depends>
                         <field id="*/*/active">1</field>
                     </depends>
@@ -37,12 +37,20 @@
                     </field>
                 </group>
             </group>
-            <group id="yunpian" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="100">
-                <label>Yuanpian Setting</label>
+            <group id="aliyun" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="100">
+                <label>Aliyun Setting</label>
                 <attribute type="expanded">0</attribute>
-                <field id="api_key" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Api Key</label>
-                    <comment>Api Key</comment>
+                <field id="access_key_id" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>AccessKey ID</label>
+                    <comment>AccessKey ID</comment>
+                </field>
+                <field id="access_key_secret" translate="label" type="text" sortOrder="15" showInDefault="2" showInWebsite="1" showInStore="1">
+                    <label>AccessKey Secret</label>
+                    <comment>AccessKey Secret</comment>
+                </field>
+                <field id="sign_name" translate="label" type="text" sortOrder="15" showInDefault="3" showInWebsite="1" showInStore="1">
+                    <label>Sign name</label>
+                    <comment>Sign name</comment>
                 </field>
                 <group id="templates" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="100">
                     <label>SMS Templates</label>
@@ -86,20 +94,12 @@
                     </group>
                 </group>
             </group>
-            <group id="aliyun" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="100">
-                <label>Aliyun Setting</label>
+            <group id="yunpian" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="101">
+                <label>Yuanpian Setting</label>
                 <attribute type="expanded">0</attribute>
-                <field id="access_key_id" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>AccessKey ID</label>
-                    <comment>AccessKey ID</comment>
-                </field>
-                <field id="access_key_secret" translate="label" type="text" sortOrder="15" showInDefault="2" showInWebsite="1" showInStore="1">
-                    <label>AccessKey Secret</label>
-                    <comment>AccessKey Secret</comment>
-                </field>
-                <field id="sign_name" translate="label" type="text" sortOrder="15" showInDefault="3" showInWebsite="1" showInStore="1">
-                    <label>Sign name</label>
-                    <comment>Sign name</comment>
+                <field id="api_key" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Api Key</label>
+                    <comment>Api Key</comment>
                 </field>
                 <group id="templates" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="100">
                     <label>SMS Templates</label>

@@ -9,7 +9,7 @@
     <default>
         <albert_sms>
             <setting>
-                <gateway>yunpian</gateway>
+                <gateway>aliyun</gateway>
             </setting>
         </albert_sms>
     </default>
