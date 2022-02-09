@@ -26,6 +26,9 @@
                 <group id="debug" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="120">
                     <label>Send Test Sms</label>
                     <attribute type="expanded">0</attribute>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                    </depends>
                     <frontend_model>Magento\Config\Block\System\Config\Form\Fieldset</frontend_model>
                     <field id="phonenumbuer" translate="label comment" type="text" sortOrder="41" showInDefault="1" showInWebsite="1" showInStore="1">
                         <label>Phone Number</label>
