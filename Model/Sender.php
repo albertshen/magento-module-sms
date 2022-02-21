@@ -32,7 +32,8 @@ class Sender
 
     /**
      * @param SmsGateway
-     * @param array
+     * @param Gateway
+     * @param MessageInterface
      */
     public function __construct(
         SmsGateway $smsGatewayConfig,

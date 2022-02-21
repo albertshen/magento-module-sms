@@ -38,7 +38,7 @@ class OrderSender extends Sender
         $transportObject = new DataObject($transport);
         $this->eventManager->dispatch(
             $this->getEvent() . '_set_template_vars_before',
-            ['sender' => $this, 'order' => $order, 'transportObject' => $transportObject]
+            ['sender' => $this, 'order' => $order, 'transport' => $transportObject]
         );
 
         $this->queue($order, $transportObject);
