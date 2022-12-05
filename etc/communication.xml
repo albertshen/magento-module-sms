@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © PHP Digital, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/queue.xsd">
+    <!-- you can name topic according to self -->
+    <topic name="sms.order.new" request="AlbertMage\Sms\Api\Data\SmsQueueInterface">
+        <handler name="sms.order.new" type="AlbertMage\Sms\Model\Consumer\NewOrder" method="process" />
+    </topic>
+    <topic name="sms.order.cancel" request="AlbertMage\Sms\Api\Data\SmsQueueInterface">
+        <handler name="sms.order.cancel" type="AlbertMage\Sms\Model\Consumer\OrderCancel" method="process" />
+    </topic>
+    <topic name="sms.payment.capture" request="AlbertMage\Sms\Api\Data\SmsQueueInterface">
+        <handler name="sms.payment.capture" type="AlbertMage\Sms\Model\Consumer\PaymentCapture" method="process" />
+    </topic>
+</config>

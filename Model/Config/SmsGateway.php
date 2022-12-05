@@ -21,6 +21,7 @@ class SmsGateway
     /**
      * Configuration paths
      */
+    const GATEWAY = 'sms';
     const XML_PATH_SMS_ENABLED = 'albert_sms/setting/active';
     const XML_PATH_SMS_GATEWAY = 'albert_sms/setting/gateway';
     const XML_PATH_PREFIX = 'albert_sms';

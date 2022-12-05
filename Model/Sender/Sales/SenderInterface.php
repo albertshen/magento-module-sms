@@ -15,6 +15,7 @@ use Magento\Sales\Model\Order;
  */
 interface SenderInterface
 {
+
     /**
      * Send order sms if it is enabled in configuration.
      *

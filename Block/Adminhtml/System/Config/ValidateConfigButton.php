@@ -17,7 +17,9 @@ use Magento\Framework\Exception\LocalizedException;
  */
 class ValidateConfigButton extends Field
 {
-    /** @var UrlInterface */
+    /** 
+     * @var UrlInterface 
+     */
     protected $_urlBuilder;
 
     /**

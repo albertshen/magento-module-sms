@@ -7,6 +7,7 @@
 namespace AlbertMage\Sms\Model;
 
 use AlbertMage\Sms\Model\MessageInterface;
+use AlbertMage\Sms\Model\Gateway\ResultInterface;
 
 /**
  * Interface for sms transport.
@@ -18,6 +19,7 @@ interface TransportInterface
 
     /**
      * Send message
+     * @return ResultInterface
      */
     public function send(MessageInterface $message);
 }

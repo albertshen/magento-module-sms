@@ -52,23 +52,7 @@ class Sender
     public function send()
     {
         $transport = $this->gatewayContainer->get($this->smsGatewayConfig->getGateway());
-        $result = $transport->send($this->message);
-        return $this->saveMessage($this->message, $result);
-    }
-
-    public function saveMessage(MessageInterface $message, Result $result)
-    {
-        $smsMessage = ObjectManager::getInstance()->create(\AlbertMage\Sms\Model\SmsMessage::class);
-        $smsMessageRepository = ObjectManager::getInstance()->create(\AlbertMage\Sms\Model\SmsMessageRepository::class);
-        $smsMessage->setPhoneNumber($message->getPhoneNumber());
-        $smsMessage->setMessageData(json_encode($message->getData()));
-        $smsMessage->setTemplateId($message->getTemplate());
-        $smsMessage->setGateway($this->smsGatewayConfig->getGateway());
-        $smsMessage->setSid($result->getSid());
-        $smsMessage->setStatus($result->getStatus());
-        $smsMessage->setResponse($result->getResponse());
-        $smsMessageRepository->save($smsMessage);
-        return $smsMessage;
+        return $transport->send($this->message);
     }
 
 }
