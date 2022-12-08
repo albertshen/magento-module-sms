@@ -5,25 +5,29 @@
  */
 namespace AlbertMage\Sms\Model\Gateway;
 
-use AlbertMage\Sms\Model\Config\SmsGateway;
+use AlbertMage\Sms\Model\Config;
 use AlbertMage\Sms\Model\TransportInterface;
 use AlbertMage\Sms\Model\GatewayInterface;
 use AlbertMage\Sms\Model\MessageInterface;
+use AlbertMage\Notification\Api\ResponseInterfaceFactory;
 use Overtrue\EasySms\EasySms;
 use Overtrue\EasySms\Exceptions\NoGatewayAvailableException;
 use Psr\Log\LoggerInterface;
 
-abstract class Gateway implements TransportInterface, GatewayInterface
+/**
+ * @author Albert Shen <albertshen1206@gmail.com>
+ */
+abstract class AbstractGateway implements TransportInterface, GatewayInterface
 {
     /**
-     * @var SmsGateway
+     * @var Config
      */
-    protected $smsGatewayConfig;
+    protected $config;
 
     /**
-     * @var ResultInterface
+     * @var ResponseInterfaceFactory
      */
-    protected $result;
+    protected $responseInterfaceFactory;
 
     /**
      * @var string
@@ -36,16 +40,16 @@ abstract class Gateway implements TransportInterface, GatewayInterface
     protected $logPath;
 
     /**
-     * @param SmsGateway
-     * @param array
+     * @param Config $config
+     * @param ResponseInterfaceFactory $responseInterfaceFactory
      */
     public function __construct(
-        SmsGateway $smsGatewayConfig,
-        ResultInterface $result
+        Config $config,
+        ResponseInterfaceFactory $responseInterfaceFactory
     )
     {
-        $this->smsGatewayConfig = $smsGatewayConfig;
-        $this->result = $result;
+        $this->config = $config;
+        $this->responseInterfaceFactory = $responseInterfaceFactory;
     }
 
     /**
@@ -55,24 +59,19 @@ abstract class Gateway implements TransportInterface, GatewayInterface
     {
         $easySms = new EasySms($this->getOptions());
         try {
-            $result = $easySms->send($message->getPhoneNumber(), [
-                'template' => $message->getTemplate(),
-                'data' => $message->getData()
-            ]);
+            $result = $easySms->send(
+                $message->getPhoneNumber(),
+                [
+                    'template' => $message->getTemplate(),
+                    'data' => $message->getData()
+                ]
+            );
         } catch (NoGatewayAvailableException $e) {
             $result = $e->getResults();
         }
         //$result = ['aliyun' => ['result' => ['BizId' => '33']]];
         //$result = ['yunpian' => ['result' => ['sid' => '999yunpian']]];
-        return $this->getResult($result);
-    }
-
-    /**
-     * @return IdentityInterface
-     */
-    public function getData()
-    {
-        return $this->smsGatewayConfig;
+        return $this->getResponse($result);
     }
 
     /**
@@ -80,7 +79,7 @@ abstract class Gateway implements TransportInterface, GatewayInterface
      */
     public function getOptions()
     {
-        $gateway = $this->smsGatewayConfig->getGateway();
+        $gateway = $this->config->getGateway();
         $options = [
             'timeout' => $this->getTimeout() ?? 5,
             'default' => [

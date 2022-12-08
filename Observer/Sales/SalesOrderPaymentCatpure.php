@@ -2,19 +2,27 @@
 
 namespace AlbertMage\Sms\Observer\Sales;
 
-use AlbertMage\Sms\Model\Config\SalesSms;
+use AlbertMage\Sms\Model\Config;
 
 class SalesOrderPaymentCatpure extends AbstractSalesObserver
 {
 
     const QUEUE_TOPIC = 'sms.payment.capture';
 
+    // /**
+    //  * @inheritDoc
+    //  */
+    // public function getGroup()
+    // {
+    //     return Config::EVENT_GROUP_ORDER;
+    // }
+    
     /**
      * @inheritDoc
      */
     public function getEvent()
     {
-        return SalesSms::PAYMENT_CAPTURE;
+        return Config::EVENT_PAYMENT_CAPTURE;
     }
 
     /**

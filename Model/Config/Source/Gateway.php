@@ -8,6 +8,9 @@ namespace AlbertMage\Sms\Model\Config\Source;
 use Magento\Framework\Option\ArrayInterface;
 use AlbertMage\Sms\Model\Container\Gateway as GatewayContainer;
 
+/**
+ * @author Albert Shen <albertshen1206@gmail.com>
+ */
 class Gateway implements ArrayInterface
 {
 

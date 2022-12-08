@@ -7,7 +7,7 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/queue_publisher.xsd">
     <!-- topic: Name of topic-->
-    <publisher topic="sms.order.new" />
+    <publisher topic="sms.order.create" />
     <publisher topic="sms.order.cancel" />
     <publisher topic="sms.payment.capture" />
 </config>

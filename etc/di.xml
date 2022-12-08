@@ -3,24 +3,55 @@
     <preference for="AlbertMage\Sms\Model\Gateway\ResultInterface" type="AlbertMage\Sms\Model\Gateway\Result" />
     <preference for="AlbertMage\Sms\Model\MessageInterface" type="AlbertMage\Sms\Model\Message" />
     <preference for="AlbertMage\Sms\Model\TransportInterface" type="AlbertMage\Sms\Model\Transport" />
-    <preference for="AlbertMage\Sms\Api\Data\SmsQueueInterface" type="AlbertMage\Sms\Model\SmsQueue" />
 
     <type name="AlbertMage\Sms\Model\Container\Gateway">
         <arguments>
             <argument name="gateways" xsi:type="array">
-                <item name="yunpian" xsi:type="string">AlbertMage\Sms\Model\Gateway\Yunpian</item>
                 <item name="aliyun" xsi:type="string">AlbertMage\Sms\Model\Gateway\Aliyun</item>
+                <item name="yunpian" xsi:type="string">AlbertMage\Sms\Model\Gateway\Yunpian</item>
             </argument>
         </arguments>
     </type>
-    <virtualType name="AlbertMage\Sms\Model\Sender\Sales\NewOrder" type="AlbertMage\Sms\Model\Sender\Sales\OrderSender">
+
+    <virtualType name="AlbertMage\Notification\Model\Order\OrderCreateNotifier" type="AlbertMage\Notification\Model\Order\Notifier">
         <arguments>
-            <argument name="event" xsi:type="string">new_order</argument>
+            <argument name="notifiers" xsi:type="array">
+                <item name="sms" xsi:type="object">AlbertMage\Sms\Model\Order\OrderCreateNotifier</item>
+            </argument>
         </arguments>
     </virtualType>
-    <virtualType name="AlbertMage\Sms\Model\Sender\UpdateOrder" type="AlbertMage\Sms\Model\Sender\OrderSender">
+    <virtualType name="AlbertMage\Notification\Model\Order\OrderCancelNotifier" type="AlbertMage\Notification\Model\Order\Notifier">
         <arguments>
-            <argument name="event" xsi:type="string">update_order</argument>
+            <argument name="notifiers" xsi:type="array">
+                <item name="sms" xsi:type="object">AlbertMage\Sms\Model\Order\OrderCancelNotifier</item>
+            </argument>
         </arguments>
     </virtualType>
+    <virtualType name="AlbertMage\Notification\Model\Order\OrderExpireNoticeNotifier" type="AlbertMage\Notification\Model\Order\Notifier">
+        <arguments>
+            <argument name="notifiers" xsi:type="array">
+                <item name="sms" xsi:type="object">AlbertMage\Sms\Model\Order\OrderExpireNoticeNotifier</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+
+    <virtualType name="AlbertMage\Sms\Model\Order\OrderCreateNotifier" type="AlbertMage\Sms\Model\Order\Notifier">
+        <arguments>
+            <argument name="event" xsi:type="const">AlbertMage\Sms\Model\Config::EVENT_ORDER_CREATE</argument>
+            <argument name="queueTopic" xsi:type="string">sms.order.create</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AlbertMage\Sms\Model\Order\OrderCancelNotifier" type="AlbertMage\Sms\Model\Order\Notifier">
+        <arguments>
+            <argument name="event" xsi:type="const">AlbertMage\Sms\Model\Config::EVENT_ORDER_CANCEL</argument>
+            <argument name="queueTopic" xsi:type="string">sms.order.cancel</argument>
+        </arguments>
+    </virtualType>
+    <type name="AlbertMage\Sms\Model\Order\OrderExpireNoticeNotifier">
+        <arguments>
+            <argument name="event" xsi:type="const">AlbertMage\Sms\Model\Config::EVENT_ORDER_EXPIRE_NOTICE</argument>
+        </arguments>
+    </type>
+
 </config>

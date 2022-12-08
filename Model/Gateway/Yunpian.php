@@ -5,7 +5,12 @@
  */
 namespace AlbertMage\Sms\Model\Gateway;
 
-class Yunpian extends Gateway
+use AlbertMage\Notification\Api\ResponseInterface;
+
+/**
+ * @author Albert Shen <albertshen1206@gmail.com>
+ */
+class Yunpian extends AbstractGateway
 {
 
     /**
@@ -14,19 +19,19 @@ class Yunpian extends Gateway
     public function getConfig()
     {
         return [
-            'api_key' => $this->getData()->getGatewayConifgValue('api_key')
+            'api_key' => $this->config->getGatewayConfigValue('api_key')
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function getResult($result)
+    public function getResponse($result)
     {
         $result = $result['yunpian']['result'];
-        $resultObject = new Result();
-        $resultObject->setSid($result['sid']);
-        return $resultObject;
+        $response = $this->responseInterfaceFactory->create();
+        $response->setSid($result['sid']);
+        return $response;
     }
 
 }

@@ -9,6 +9,9 @@ namespace AlbertMage\Sms\Model\Container;
 use Magento\Framework\App\ObjectManager;
 use AlbertMage\Sms\Model\GatewayInterface;
 
+/**
+ * @author Albert Shen <albertshen1206@gmail.com>
+ */
 class Gateway
 {
     /**

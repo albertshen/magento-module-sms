@@ -8,8 +8,8 @@ namespace AlbertMage\Sms\Model;
 
 /**
  * Interface for sms message.
- * @api
- * @since 100.0.2
+ * 
+ * @author Albert Shen <albertshen1206@gmail.com>
  */
 interface MessageInterface
 {

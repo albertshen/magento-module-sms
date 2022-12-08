@@ -7,6 +7,11 @@ use Magento\Framework\Event\Observer;
 interface SalesObserverInterface
 {
 
+    // /**
+    //  * @return string
+    //  */
+    // public function getGroup();
+
     /**
      * @return string
      */

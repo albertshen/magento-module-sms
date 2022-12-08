@@ -2,19 +2,27 @@
 
 namespace AlbertMage\Sms\Observer\Sales;
 
-use AlbertMage\Sms\Model\Config\SalesSms;
+use AlbertMage\Sms\Model\Config;
 
 class SalesModelServiceQuoteSubmitSuccess extends AbstractSalesObserver
 {
 
     const QUEUE_TOPIC = 'sms.order.new';
 
+    // /**
+    //  * @inheritDoc
+    //  */
+    // public function getGroup()
+    // {
+    //     return Config::EVENT_GROUP_ORDER;
+    // }
+    
     /**
      * @inheritDoc
      */
     public function getEvent()
     {
-        return SalesSms::NEW_ORDER;
+        return Config::EVENT_NEW_ORDER;
     }
 
     /**

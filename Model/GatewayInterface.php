@@ -8,11 +8,12 @@ namespace AlbertMage\Sms\Model;
 
 /**
  * Interface for sms gateway.
- * @api
- * @since 100.0.2
+ * 
+ * @author Albert Shen <albertshen1206@gmail.com>
  */
 interface GatewayInterface
 {
+
     /**
      * Get sms getway config.
      * 
@@ -23,9 +24,9 @@ interface GatewayInterface
     /**
      * Get sms message result.
      * 
-     * @return array
+     * @return \AlbertMage\Notification\Api\ResponseInterface
      */
-    public function getResult($result);
+    public function getResponse($result);
 
     /**
      * @return int

@@ -14,7 +14,7 @@
         <!-- topic: The name of a topic -->
         <!-- destinationType: Must be queue -->
         <!-- destination: Identifies the name of a queue -->
-        <binding id="sms.order.new" topic="sms.order.new" destinationType="queue" destination="sms.order.new"/>
+        <binding id="sms.order.create" topic="sms.order.create" destinationType="queue" destination="sms.order.create"/>
         <binding id="sms.order.cancel" topic="sms.order.cancel" destinationType="queue" destination="sms.order.cancel"/>
         <binding id="sms.payment.capture" topic="sms.payment.capture" destinationType="queue" destination="sms.payment.capture"/>
     </exchange>

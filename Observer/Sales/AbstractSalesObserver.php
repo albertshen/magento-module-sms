@@ -7,8 +7,7 @@ use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\DataObject;
 use Magento\Framework\Event\ManagerInterface as EventManagerInterface;
 use Magento\Framework\MessageQueue\PublisherInterface;
-use AlbertMage\Sms\Model\Config\SalesSms;
-use AlbertMage\Sms\Model\Config\SmsGateway;
+use AlbertMage\Sms\Model\Config;
 use AlbertMage\Sms\Api\Data\SmsQueueInterfaceFactory;
 
 abstract class AbstractSalesObserver implements ObserverInterface, SalesObserverInterface
@@ -20,14 +19,9 @@ abstract class AbstractSalesObserver implements ObserverInterface, SalesObserver
     private $publisher;
 
     /**
-     * @var SmsGateway
+     * @var Config
      */
-    private $smsGatewayConfig;
-
-    /**
-     * @var SalesSms
-     */
-    private $salesSmsConfig;
+    private $config;
 
     /**
      * @var SmsQueueInterfaceFactory
@@ -43,21 +37,18 @@ abstract class AbstractSalesObserver implements ObserverInterface, SalesObserver
 
     /**
      * @param PublisherInterface $publisher
-     * @param SalesSms $salesSmsConfig
-     * @param SmsGateway $smsGatewayConfig
+     * @param Config $config
      * @param SmsQueueInterfaceFactory $smsQueueFactory
      * @param EventManagerInterface $eventManager
      */
     public function __construct(
         PublisherInterface $publisher,
-        SalesSms $salesSmsConfig,
-        SmsGateway $smsGatewayConfig,
+        Config $config,
         SmsQueueInterfaceFactory $smsQueueFactory,
         EventManagerInterface $eventManager
     ) {
         $this->publisher = $publisher;
-        $this->smsGatewayConfig = $smsGatewayConfig;
-        $this->salesSmsConfig = $salesSmsConfig;
+        $this->config = $config;
         $this->smsQueueFactory = $smsQueueFactory;
         $this->eventManager = $eventManager;
     }
@@ -70,24 +61,26 @@ abstract class AbstractSalesObserver implements ObserverInterface, SalesObserver
     public function execute(Observer $observer)
     {
 
-        if (!$this->smsGatewayConfig->isEnabled() || !$this->salesSmsConfig->isEnabled($this->getEvent())) {
-            return false;
-        }
-
         $order = $observer->getEvent()->getOrder();
 
+        // if (!$this->config->isEnabled($this->getEvent(), $order->getStore()->getId())) {
+        //     return;
+        // }
+
         //prepare template data
-        $messageObject = new DataObject();
+        $messageObject = new DataObject(['increment_id' => $order->getIncrementId()]);
         $this->eventManager->dispatch(
-            SmsGateway::GATEWAY . '_' . $this->getEvent() . '_set_template_vars_before',
+            Config::GATEWAY_TYPE . '_' . $this->getEvent() . '_set_template_vars_before',
             ['order' => $order, 'message_object' => $messageObject]
         );
-
+        
         $smsQueue = $this->smsQueueFactory->create();
         $smsQueue->setStoreId($order->getStore()->getId());
+        $smsQueue->setCustomerId($order->getCustomerId());
+        $smsQueue->setIncrementId($order->getIncrementId());
+        $smsQueue->setEvent($this->getEvent());
         $smsQueue->setPhoneNumber($order->getShippingAddress()->getTelephone());
-        $smsQueue->setTemplatePath($this->salesSmsConfig->getTemplatePathByEvent($this->getEvent()));
-        $smsQueue->setMessageData($messageObject->getData());
+        $smsQueue->setMessageData($messageObject->toJson());
         $this->publisher->publish($this->getQueueTopic(), $smsQueue);
     }
 
