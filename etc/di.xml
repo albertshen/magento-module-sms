@@ -34,24 +34,33 @@
             </argument>
         </arguments>
     </virtualType>
-
-
+    <virtualType name="AlbertMage\Notification\Model\Order\OrderPaymentCatpureNotifier" type="AlbertMage\Notification\Model\Order\Notifier">
+        <arguments>
+            <argument name="notifiers" xsi:type="array">
+                <item name="sms" xsi:type="object">AlbertMage\Sms\Model\Order\OrderPaymentCatpureNotifier</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    
     <virtualType name="AlbertMage\Sms\Model\Order\OrderCreateNotifier" type="AlbertMage\Sms\Model\Order\Notifier">
         <arguments>
-            <argument name="event" xsi:type="const">AlbertMage\Sms\Model\Config::EVENT_ORDER_CREATE</argument>
-            <argument name="queueTopic" xsi:type="string">sms.order.create</argument>
+            <argument name="event" xsi:type="const">AlbertMage\Notification\Model\ConfigInterface::EVENT_ORDER_CREATE</argument>
         </arguments>
     </virtualType>
     <virtualType name="AlbertMage\Sms\Model\Order\OrderCancelNotifier" type="AlbertMage\Sms\Model\Order\Notifier">
         <arguments>
-            <argument name="event" xsi:type="const">AlbertMage\Sms\Model\Config::EVENT_ORDER_CANCEL</argument>
-            <argument name="queueTopic" xsi:type="string">sms.order.cancel</argument>
+            <argument name="event" xsi:type="const">AlbertMage\Notification\Model\ConfigInterface::EVENT_ORDER_CANCEL</argument>
         </arguments>
     </virtualType>
-    <type name="AlbertMage\Sms\Model\Order\OrderExpireNoticeNotifier">
+    <virtualType name="AlbertMage\Sms\Model\Order\OrderExpireNoticeNotifier" type="AlbertMage\Sms\Model\Order\Notifier">
         <arguments>
-            <argument name="event" xsi:type="const">AlbertMage\Sms\Model\Config::EVENT_ORDER_EXPIRE_NOTICE</argument>
+            <argument name="event" xsi:type="const">AlbertMage\Notification\Model\ConfigInterface::EVENT_ORDER_EXPIRE_NOTICE</argument>
         </arguments>
-    </type>
+    </virtualType>
+    <virtualType name="AlbertMage\Sms\Model\Order\OrderPaymentCatpureNotifier" type="AlbertMage\Sms\Model\Order\Notifier">
+        <arguments>
+            <argument name="event" xsi:type="const">AlbertMage\Notification\Model\ConfigInterface::EVENT_PAYMENT_CAPTURE</argument>
+        </arguments>
+    </virtualType>
 
 </config>

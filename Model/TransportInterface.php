@@ -19,7 +19,7 @@ interface TransportInterface
 
     /**
      * Send message
-     * @return responseInterface
+     * @return ResponseInterface
      */
     public function send(MessageInterface $message);
 }

@@ -7,7 +7,7 @@
 namespace AlbertMage\Sms\Model;
 
 use Magento\Framework\App\ObjectManager;
-use AlbertMage\Notification\Api\Data\QueueInterface;
+use Magento\Framework\DataObject;
 use AlbertMage\Sms\Model\MessageInterfaceFactory;
 use AlbertMage\Sms\Model\Config;
 use AlbertMage\Notification\Api\Data\NotificationInterfaceFactory;
@@ -36,22 +36,34 @@ class SenderBuilder
     protected $notificationInterfaceFactory;
 
     /**
-     * @var QueueInterface
+     * @var int
      */
-    protected $queue;
-
-        /**
-     * @var \AlbertMage\Notification\Api\Data\Notification
-     */
-    protected $notification;
+    protected $storeId;  
 
     /**
-     * @param SenderOptions $options
+     * @var string
+     */
+    protected $phoneNumber;  
+
+    /**
+     * @var string
+     */
+    protected $event; 
+
+    /**
+     * @var DataObject
+     */
+    protected $messageData; 
+
+    /**
+     * @param Config $config
+     * @param MessageInterfaceFactory $messageInterfaceFactory
+     * @param NotificationInterfaceFactory $notificationInterfaceFactory
      */
     public function __construct(
+        Config $config
         MessageInterfaceFactory $messageInterfaceFactory,
         NotificationInterfaceFactory $notificationInterfaceFactory,
-        Config $config
     )
     {
         $this->config = $config;
@@ -60,14 +72,50 @@ class SenderBuilder
     }
 
     /**
-     * Set Queue.
+     * Set Store ID.
      * 
-     * @param QueueInterface $queue
+     * @param string $storeId
      * @return $this
      */
-    public function setQueue(QueueInterface $queue)
+    public function setStoreId($storeId)
     {
-        $this->queue = $queue;
+        $this->storeId = $storeId;
+        return $this;
+    }
+
+    /**
+     * Set Phone Number.
+     * 
+     * @param string $phoneNumber
+     * @return $this
+     */
+    public function setPhoneNumber($phoneNumber)
+    {
+        $this->phoneNumber = $phoneNumber;
+        return $this;
+    }
+
+    /**
+     * Set Event.
+     * 
+     * @param string $event
+     * @return $this
+     */
+    public function setEvent($event)
+    {
+        $this->event = $event;
+        return $this;
+    }
+
+    /**
+     * Set Message Data.
+     * 
+     * @param DataObject $messageData
+     * @return $this
+     */
+    public function setMessageData(DataObject $messageData)
+    {
+        $this->messageData = $messageData;
         return $this;
     }
 
@@ -76,17 +124,17 @@ class SenderBuilder
      * 
      * @return $this
      */
-    public function prepareMessageFormQueue()
+    public function prepareMessage()
     {
-        $this->config->setStore($this->queue->getStoreId());
-        $this->message->setPhoneNumber($this->queue->getTouser());
+        $this->config->setStore($this->storeId);
+        $this->message->setPhoneNumber($this->phoneNumber);
         $this->message->setTemplate(
             $this->config->getTemplateIdentifier(
-                $this->queue->getEvent(),
-                $this->queue->getStoreId()
+                $this->event,
+                $this->storeId
             )
         );
-        $this->message->setData(json_decode($this->queue->getMessageData(), true));
+        $this->message->setData($this->messageData->toArray(), true);
         return $this;
     }
 
@@ -97,18 +145,15 @@ class SenderBuilder
      */
     public function prepareStorageNotification()
     {
-        $this->notification = $this->notificationInterfaceFactory->create();
+        
         $this->notification
-            ->setTouser($this->queue->getTouser())
-            ->setStoreId($this->queue->getStoreId())
-            ->setCustomerId($this->queue->getCustomerId())
-            ->setIncrementId($this->queue->getIncrementId())
+            ->setTouser($this->phoneNumber)
+            ->setStoreId($this->storeId)
             ->setType(Config::GATEWAY_TYPE)
-            ->setEvent($this->queue->getEvent())
+            ->setEvent($this->event)
             ->setTemplateId($this->message->getTemplate())
-            ->setMessageData($this->queue->getMessageData())
+            ->setMessageData($this->messageData->toJson());
             ->setGateway($this->config->getGateway());
-
         return $this;
     }
 
@@ -118,10 +163,11 @@ class SenderBuilder
      */
     public function getSender()
     {
+        $this->prepareMessage();
 
-        $this->prepareMessageFormQueue();
-
-        $this->prepareStorageNotification();
+        if ($this->notification) {
+            $this->prepareStorageNotification();
+        }
 
         return ObjectManager::getInstance()->create(
             Sender::class,
