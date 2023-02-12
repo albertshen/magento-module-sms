@@ -16,50 +16,42 @@ class Notifier implements NotifierInterface
     /**
      * @var EventManagerInterface
      */
-    private $eventManager;
+    protected $eventManager;
 
     /**
      * @var Config
      */
-    private $config;
-
-    /**
-     * @var string
-     */
-    private $event;
+    protected $config;
 
     /**
      * @param EventManagerInterface $eventManager
      * @param Config $config
-     * @param string $event
      */
     public function __construct(
-        EventManagerInterface $eventManager
-        Config $config,
-        $event,
+        EventManagerInterface $eventManager,
+        Config $config
     ) {
         $this->eventManager = $eventManager;
         $this->config = $config;
-        $this->event = $event;
     }
 
     /**
      * @param OrderInterface $order
-     * @param NotificationInterface $notification
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @return void
      */
-    public function notify(OrderInterface $order, NotificationInterface $notification)
+    public function notify(OrderInterface $order, string $event, NotificationInterface $notification)
     {
 
-        if (!$this->config->isEnabled($this->event, $order->getStore()->getId())) {
+        if (!$this->config->isEnabled($event, $order->getStore()->getId())) {
             return;
         }
 
         //prepare template data
         $messageObject = new DataObject(['increment_id' => $order->getIncrementId()]);
         $this->eventManager->dispatch(
-            Config::GATEWAY_TYPE . '_' . $this->event . '_set_template_vars_before',
+            Config::GATEWAY_TYPE . '_' . $event . '_set_template_vars_before',
             ['order' => $order, 'message_object' => $messageObject]
         );
 
@@ -69,17 +61,19 @@ class Notifier implements NotifierInterface
             ->setNotification($notification)
             ->setStoreId($order->getStore()->getId())
             ->setPhoneNumber($order->getShippingAddress()->getTelephone())
-            ->setEvent($this->event)
+            ->setEvent($event)
             ->setMessageData($messageObject)
             ->getSender()
             ->send();
 
         $notification
             ->setCustomerId($order->getCustomerId())
-            ->setIncrementId($order->getIncrementId());
+            ->setIncrementId($order->getIncrementId())
             ->setStatus($response->getStatus())
             ->setSid($response->getSid())
             ->setResponse($response->getBody());
+
+        return $notification;
     }
 
 }

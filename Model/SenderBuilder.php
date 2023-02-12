@@ -10,7 +10,7 @@ use Magento\Framework\App\ObjectManager;
 use Magento\Framework\DataObject;
 use AlbertMage\Sms\Model\MessageInterfaceFactory;
 use AlbertMage\Sms\Model\Config;
-use AlbertMage\Notification\Api\Data\NotificationInterfaceFactory;
+use AlbertMage\Notification\Api\Data\NotificationInterface;
 
 /**
  * Interface for sms sender.
@@ -31,9 +31,9 @@ class SenderBuilder
     protected $messageInterfaceFactory;
 
     /**
-     * @var NotificationInterfaceFactory
+     * @var NotificationInterface
      */
-    protected $notificationInterfaceFactory;
+    protected $notification;
 
     /**
      * @var int
@@ -58,17 +58,26 @@ class SenderBuilder
     /**
      * @param Config $config
      * @param MessageInterfaceFactory $messageInterfaceFactory
-     * @param NotificationInterfaceFactory $notificationInterfaceFactory
      */
     public function __construct(
-        Config $config
+        Config $config,
         MessageInterfaceFactory $messageInterfaceFactory,
-        NotificationInterfaceFactory $notificationInterfaceFactory,
     )
     {
         $this->config = $config;
         $this->message = $messageInterfaceFactory->create();
-        $this->notificationInterfaceFactory = $notificationInterfaceFactory;
+    }
+
+    /**
+     * Set Notification.
+     * 
+     * @param NotificationInterface $notification
+     * @return $this
+     */
+    public function setNotification($notification)
+    {
+        $this->notification = $notification;
+        return $this;
     }
 
     /**
@@ -134,7 +143,7 @@ class SenderBuilder
                 $this->storeId
             )
         );
-        $this->message->setData($this->messageData->toArray(), true);
+        $this->message->setData($this->messageData->toArray());
         return $this;
     }
 
@@ -152,7 +161,7 @@ class SenderBuilder
             ->setType(Config::GATEWAY_TYPE)
             ->setEvent($this->event)
             ->setTemplateId($this->message->getTemplate())
-            ->setMessageData($this->messageData->toJson());
+            ->setMessageData($this->messageData->toJson())
             ->setGateway($this->config->getGateway());
         return $this;
     }
@@ -172,7 +181,6 @@ class SenderBuilder
         return ObjectManager::getInstance()->create(
             Sender::class,
             [
-                'notification' => $this->notification,
                 'gateway' => $this->config->getGateway(),
                 'message' => $this->message
             ]
