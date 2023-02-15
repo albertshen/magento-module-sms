@@ -30,7 +30,6 @@ class Aliyun extends AbstractGateway
      */
     public function getResponse($result)
     {
-        var_dump(555,$result);
         $response = $this->responseInterfaceFactory->create();
         if (isset($result['aliyun']['result'])) {
             $re = $result['aliyun']['result'];
