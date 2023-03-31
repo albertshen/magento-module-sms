@@ -8,7 +8,7 @@ namespace AlbertMage\Sms\Model;
 use AlbertMage\Sms\Model\MessageInterface;
 use AlbertMage\Sms\Model\Container\Gateway;
 use Magento\Framework\Exception\LocalizedException;
-use AlbertMage\Notification\Api\ResponseInterface;
+use AlbertMage\Notification\Api\Data\ResponseInterface;
 
 /**
  * @author Albert Shen <albertshen1206@gmail.com>

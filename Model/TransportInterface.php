@@ -7,7 +7,7 @@
 namespace AlbertMage\Sms\Model;
 
 use AlbertMage\Sms\Model\MessageInterface;
-use AlbertMage\Notification\Api\ResponseInterface;
+use AlbertMage\Notification\Api\Data\ResponseInterface;
 
 /**
  * Interface for sms transport.

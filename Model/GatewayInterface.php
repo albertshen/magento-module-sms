@@ -24,7 +24,7 @@ interface GatewayInterface
     /**
      * Get sms message result.
      * 
-     * @return \AlbertMage\Notification\Api\ResponseInterface
+     * @return \AlbertMage\Notification\Api\Data\ResponseInterface
      */
     public function getResponse($result);
 

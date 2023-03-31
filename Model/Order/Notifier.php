@@ -45,7 +45,7 @@ class Notifier implements NotifierInterface
     {
 
         if (!$this->config->isEnabled($event, $order->getStore()->getId())) {
-            return;
+            return $notification;
         }
 
         //prepare template data

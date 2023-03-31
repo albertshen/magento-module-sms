@@ -9,7 +9,7 @@ use AlbertMage\Sms\Model\Config;
 use AlbertMage\Sms\Model\TransportInterface;
 use AlbertMage\Sms\Model\GatewayInterface;
 use AlbertMage\Sms\Model\MessageInterface;
-use AlbertMage\Notification\Api\ResponseInterfaceFactory;
+use AlbertMage\Notification\Api\Data\ResponseInterfaceFactory;
 use Overtrue\EasySms\EasySms;
 use Overtrue\EasySms\Exceptions\NoGatewayAvailableException;
 use Psr\Log\LoggerInterface;

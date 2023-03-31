@@ -5,7 +5,7 @@
  */
 namespace AlbertMage\Sms\Model\Gateway;
 
-use AlbertMage\Notification\Api\ResponseInterface;
+use AlbertMage\Notification\Api\Data\ResponseInterface;
 
 /**
  * @author Albert Shen <albertshen1206@gmail.com>
